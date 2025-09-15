@@ -15,9 +15,7 @@ final class AddPropertyPropertyCategoryUpdated extends AddPropertyState {}
 class AddPropertyLocationUpdated extends AddPropertyState {}
 class AddPropertyPageChanged extends AddPropertyState {}
 class AddPropertyChangeChooseOffices extends AddPropertyState {}
-class GetOfficeLoading extends AddPropertyState{}
-class GetOfficeSuccess extends AddPropertyState{}
-class GetOfficeError extends AddPropertyState{}
+
 class GetStateLoading extends AddPropertyState{}
 class GetStateSuccess extends AddPropertyState{}
 class GetStateError extends AddPropertyState{}

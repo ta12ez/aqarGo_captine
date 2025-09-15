@@ -3,13 +3,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:manzel/core/component/showToast.dart';
-import 'package:manzel/core/network/remote/apis_const.dart';
-import 'package:manzel/core/network/remote/dioHelper.dart';
-import 'package:manzel/core/network/remote/header_constance.dart';
-import 'package:manzel/features/add_property/model/office_model.dart';
-import 'package:manzel/features/add_property/model/region_model.dart';
-import 'package:manzel/features/add_property/model/state_model.dart';
+import 'package:manzal_office/core/component/showToast.dart';
+import 'package:manzal_office/core/network/remote/apis_const.dart';
+import 'package:manzal_office/core/network/remote/dioHelper.dart';
+import 'package:manzal_office/core/network/remote/header_constance.dart';
+import 'package:manzal_office/features/add_property/model/region_model.dart';
+import 'package:manzal_office/features/add_property/model/state_model.dart';
 import 'package:meta/meta.dart';
 
 part 'add_property_state.dart';
@@ -18,14 +17,13 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   AddPropertyCubit() : super(AddPropertyInitial());
 
   static AddPropertyCubit get(context) => BlocProvider.of(context);
-  var BoardController = PageController();
+  var BoardController=PageController();
   int currentPageIndex = 0;
 
   void setCurrentPage(int index) {
     currentPageIndex = index;
     emit(AddPropertyPageChanged());
   }
-
   final TextEditingController locationDescController = TextEditingController();
   final TextEditingController titleController = TextEditingController();
 
@@ -49,59 +47,48 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
     }
   }
 
+
   void removeImage(int index) {
     images[index] = null;
     emit(AddPropertyImagesUpdated());
   }
 
-  List<String> propertyCategories = [
-    'residental',
-    'commercial',
-  //  'industrial',
-    'agricultural',
-  ];
+  List<String> propertyCategories = ['residental','commercial','industrial','agricultural'];
   //['house','villa','apartment','company','shopping_center','mall','store','restaurant','coffe','hotel','exhibition','sport_club']
   String propertyCategory = 'residental';
-  List<String> residentialTypes = ['house', 'villa', 'apartment'];
-  List<String> agriculturalCategories = ['land', 'farm', 'hangar'];
-  List<String> commercialTypes = [
-    'company',
-    'shopping_center',
-    'mall',
-    'store',
-    'restaurant',
-    'coffe',
-    'hotel',
-    'exhibition',
-    'sport_club',
-  ];
-  List<String> propertyTypes = ['house', 'villa', 'apartment'];
-  String propertyType = 'house';
+  List<String> residentialTypes = ['house','villa','apartment'];
+  //List<String> agriculturalCategories = ['land','farm','hangar'];
+  List<String> commercialTypes = ['company','shopping_center','mall','store','restaurant','coffe','hotel','exhibition','sport_club'];
+  List<String> propertyTypes = ['house','villa','apartment'];
+  String propertyType='house';
   void choosePropertyCategory({required String category}) {
     propertyCategory = category;
     if (category == 'residental') {
       propertyTypes = residentialTypes;
-      propertyType = 'apartment';
+      propertyType='apartment';
+
     } else if (category == 'agricultural') {
       propertyTypes = [];
-      propertyType = '';
+      propertyType='';
+
     } else if (category == 'industrial') {
       propertyTypes = [];
-      propertyType = '';
+      propertyType='';
+
     } else if (category == 'commercial') {
       propertyTypes = commercialTypes;
-      propertyType = 'company';
+      propertyType='company';
+
     }
     emit(AddPropertyPropertyTypeUpdated());
   }
-
   void choosePropertyType({required String type}) {
     propertyType = type;
 
     emit(AddPropertyPropertyTypeUpdated());
   }
 
-  List<String> contractTypes = ['sale', 'rent'];
+  List<String> contractTypes = ['sale','rent'];
   String contractType = 'sale';
   void chooseContractType({required String type}) {
     contractType = type;
@@ -112,60 +99,54 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
   void getState() {
     emit(GetStateLoading());
     DioHelper.getData(
-          url: ApiConstance.getStateForAdd,
-          token: HeaderConstance.token,
-        )
-        .then((value) {
-          if (value.statusCode == 200) {
-            states =
-                (value.data as List)
-                    .map((e) => StateModel.fromJson(e))
-                    .toList();
-            emit(GetStateSuccess());
-          } else {
-            emit(GetRegionError());
-          }
-        })
-        .catchError((error) {
-          emit(GetStateError());
-          print("e1:${error.toString()}");
-        });
+      url: ApiConstance.getStateForAdd,
+      token: HeaderConstance.token,
+    ).then((value) {
+      if (value.statusCode == 200) {
+        states = (value.data as List)
+            .map((e) => StateModel.fromJson(e))
+            .toList();
+        emit(GetStateSuccess());
+      }else{
+        emit(GetRegionError());
+      }
+    }).catchError((error) {
+      emit(GetStateError());
+      print("e1:${error.toString()}");
+    });
   }
 
-  Map<String, List<RegionModel>>? reagions;
+  Map<String,List<RegionModel>>? reagions;
   void getRegion() {
     emit(GetRegionLoading());
     DioHelper.getData(
-          url: ApiConstance.getRegionForAdd,
-          token: HeaderConstance.token,
-        )
-        .then((value) {
-          if (value.statusCode == 200) {
-            reagions = {};
-            List<RegionModel> regionModels =
-                (value.data as List)
-                    .map((e) => RegionModel.fromJson(e))
-                    .toList();
+      url: ApiConstance.getRegionForAdd,
+      token: HeaderConstance.token,
+    ).then((value) {
+      if (value.statusCode == 200) {
+        reagions = {};
+        List<RegionModel> regionModels = (value.data as List)
+            .map((e) => RegionModel.fromJson(e))
+            .toList();
 
-            for (var region in regionModels) {
-              if (region.stateId != null) {
-                reagions!.putIfAbsent("${region.stateId!}", () => []);
-                reagions!["${region.stateId!}"]!.add(region);
-              }
-            }
-            emit(GetRegionSuccess());
-          } else {
-            emit(GetRegionError());
+        for (var region in regionModels) {
+          if (region.stateId != null) {
+            reagions!.putIfAbsent("${region.stateId!}", () => []);
+            reagions!["${region.stateId!}"]!.add(region);
           }
-        })
-        .catchError((error) {
-          emit(GetRegionError());
-          print("e2:${error.toString()}");
-        });
+        }
+        emit(GetRegionSuccess());
+      }else{
+        emit(GetRegionError());
+      }
+    }).catchError((error) {
+      emit(GetRegionError());
+      print("e2:${error.toString()}");
+    });
   }
 
-  String? selectedGovernorate;
-  String? selectedArea;
+  String? selectedGovernorate ;
+  String? selectedArea ;
 
   void selectGovernorate(String? gov) {
     if (gov == null) {
@@ -178,52 +159,13 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
     emit(AddPropertyLocationUpdated());
   }
 
+
   void selectArea(String? area) {
     selectedArea = area;
     emit(AddPropertyLocationUpdated());
   }
 
-  List<int> chooseOffices = [];
-  List<OfficeModel>? officesmodel;
-  void getAllOffice() {
-    print(HeaderConstance.token);
-
-    emit(GetOfficeLoading());
-    DioHelper.getData(
-          url: ApiConstance.getOfficeForAdd,
-          token: HeaderConstance.token,
-        )
-        .then((value) {
-          if (value.statusCode == 200) {
-            officesmodel =
-                (value.data["offices"] as List)
-                    .map((e) => OfficeModel.fromJson(e))
-                    .toList();
-            emit(GetOfficeSuccess());
-          } else {
-            emit(GetOfficeError());
-          }
-        })
-        .catchError((error) {
-          emit(GetOfficeError());
-          print("e3:${error.toString()}");
-        });
-  }
-
-  void changeChooseOffices({required int index}) {
-    if (chooseOffices.contains(index)) {
-      chooseOffices.remove(index);
-      emit(AddPropertyChangeChooseOffices());
-    } else {
-      if (chooseOffices.length == 3) {
-      } else {
-        chooseOffices.add(index);
-        emit(AddPropertyChangeChooseOffices());
-      }
-    }
-  }
-
-  void addRequestForAddProperty() async {
+  void addProperty() async {
     emit(AddPropertyLoading());
 
     try {
@@ -231,14 +173,9 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
       List<MultipartFile> imageFiles = [];
       for (var img in images) {
         if (img != null) {
-          imageFiles.add(
-            await MultipartFile.fromFile(img.path, filename: img.name),
-          );
+          imageFiles.add(await MultipartFile.fromFile(img.path, filename: img.name));
         }
       }
-      List<String> office_ids =
-          chooseOffices.map((id) => id.toString()).toList();
-      print(office_ids);
 
       // تجهيز الـ FormData
       FormData data = FormData.fromMap({
@@ -251,7 +188,6 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
         'contract_type': contractType,
         'property_category': propertyCategory,
         'property_type': propertyType,
-        'office_ids[]': office_ids,
         'images[]': imageFiles,
       });
       print(data.fields);
@@ -264,24 +200,23 @@ class AddPropertyCubit extends Cubit<AddPropertyState> {
       if (response.statusCode == 201) {
         emit(AddPropertySuccess());
         showToast(msg: "add success", state: ToastState.SUCCESS);
-        print("✅ تمت إضافة العقار بنجاح: ${response.data}");
+        print(" تمت إضافة العقار بنجاح: ${response.data}");
       } else {
         emit(AddPropertyError());
         showToast(msg: "add Error", state: ToastState.ERORR);
 
-        print(
-          "❌ فشل الإضافة: ${response.statusCode} - ${response.statusMessage}",
-        );
+        print(" فشل الإضافة: ${response.statusCode} - ${response.statusMessage}");
       }
     } catch (e) {
-      if (e is DioException) {
+      if(e is DioException){
         emit(AddPropertyError());
         showToast(msg: "add Error", state: ToastState.ERORR);
-        print("❌ حدث خطأ: ${e.response?.data}");
+        print(" حدث خطأ: ${e.response?.data}");
       }
       emit(AddPropertyError());
       showToast(msg: "add Error", state: ToastState.ERORR);
-      print("❌ حدث خطأ: ${e.toString()}");
+      print(" حدث خطأ: ${e.toString()}");
     }
   }
+
 }

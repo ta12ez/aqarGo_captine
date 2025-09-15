@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:manzel/core/component/text_buttom.dart';
+import 'package:manzal_office/core/component/text_buttom.dart';
 
 class Footer extends StatelessWidget {
   final String text;

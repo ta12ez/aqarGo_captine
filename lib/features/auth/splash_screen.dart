@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:manzel/core/constant/color.dart';
-import 'package:manzel/core/network/local/cachHelper.dart';
-import 'package:manzel/core/network/remote/header_constance.dart';
-import 'package:manzel/features/auth/login.dart';
-import 'package:manzel/main_screen/main_screen.dart';
+import 'package:manzal_office/core/network/local/cachHelper.dart';
+import 'package:manzal_office/core/network/remote/header_constance.dart';
+import 'package:manzal_office/features/auth/login.dart';
+import 'package:manzal_office/features/home_page/home_page.dart';
+
+import '../../core/constant/color.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -27,7 +28,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     if( CacheHelper.getData(key: "token") != null){
 
       HeaderConstance.token=CacheHelper.getData(key: "token");
-      startScreen = MainScreen();
+      print(HeaderConstance.token);
+      startScreen = HomePage();
     }else{
       startScreen = Login();
     }
@@ -51,10 +53,9 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
           child: ScaleTransition(
             scale: _animation,
             child: Column(
-
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-               Image.asset('assets/images/logo.png', height: 300),
+              Image.asset('assets/images/logo.png', height: 300),
               ],
             ),
           ),

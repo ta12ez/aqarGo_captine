@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:manzel/core/constant/color.dart';
-import 'package:manzel/core/constant/screen_size.dart';
 
 class BackGround extends StatelessWidget {
   final Widget child;

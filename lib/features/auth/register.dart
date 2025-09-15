@@ -1,39 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:manzel/core/component/back_groung.dart';
-import 'package:manzel/core/component/buttom_component.dart';
-import 'package:manzel/core/component/navigator.dart';
-import 'package:manzel/core/component/text_from_filde_component.dart';
-import 'package:manzel/core/constant/color.dart';
-import 'package:manzel/core/constant/screen_size.dart';
-import 'package:manzel/features/auth/components/footer.dart';
-import 'package:manzel/features/auth/components/header.dart';
-import 'package:manzel/features/auth/components/title.dart';
-import 'package:manzel/features/auth/controller/auth_cubit.dart';
-import 'package:manzel/features/auth/login.dart';
-import 'package:manzel/main_screen/main_screen.dart';
-
-import '../../core/constant/app_localizations.dart';
+import 'package:manzal_office/core/component/back_groung.dart';
+import 'package:manzal_office/core/component/buttom_component.dart';
+import 'package:manzal_office/core/component/text_from_filde_component.dart';
+import 'package:manzal_office/core/constant/screen_size.dart';
+import 'package:manzal_office/features/auth/components/description_text_field.dart';
+import 'package:manzal_office/features/auth/components/footer.dart';
+import 'package:manzal_office/features/auth/components/header.dart';
+import 'package:manzal_office/features/auth/components/title.dart';
+import 'package:manzal_office/features/auth/controller/auth_cubit.dart';
 
 class Register extends StatelessWidget {
   Register({super.key});
-  TextEditingController firstName = TextEditingController();
-  TextEditingController lastName = TextEditingController();
-  TextEditingController phone = TextEditingController();
+  TextEditingController officeName = TextEditingController();
   TextEditingController email = TextEditingController();
+  TextEditingController profitPercentage = TextEditingController();
+  TextEditingController description = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController passwordConfirm = TextEditingController();
+  TextEditingController phone = TextEditingController();
   var formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final localizer = AppLocalizations.of(context);
-    final isArabic = Localizations.localeOf(context).languageCode == 'ar';
-    final isEnglish = Localizations.localeOf(context).languageCode == 'en';
     return BlocProvider(
-  create: (context) => AuthCubit(),
-  child: Directionality(
-    textDirection:  isArabic ? TextDirection.rtl : TextDirection.ltr,
-    child: Scaffold(
+      create: (context) => AuthCubit(),
+      child: Scaffold(
         body: BackGround(
           child: Padding(
             padding: const EdgeInsets.all(10.0),
@@ -49,131 +40,129 @@ class Register extends StatelessWidget {
                 SizedBox(height: screenHeight(context) * 0.05),
 
                 TitleComponent(
-                  title1: "${localizer.translate("title register")}",
-                  title2: ' ${localizer.translate("title register1")}',
-                  disc: '${localizer.translate("title3")}',
+                  title1: "Create Your  ",
+                  title2: 'Account',
+                  disc: 'discover the best and cheapest properties with us',
                 ),
                 SizedBox(height: screenHeight(context) * 0.05),
-                Form(
-                  key: formkey,
-                  child: Expanded(
+                Expanded(
+                  child: Form(
+                    key: formkey,
                     child: Center(
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
                             TextFromFildeComponent(
-                              hintText: '${localizer.translate("first name")}',
-                              controller: firstName,
-                              prefixIcon: Icons.person_outlined,
-                                validator: (value){
-                                  if (value == null || value.isEmpty) {
-                                    return '${localizer.translate("validate")}';
-                                  }
+                              hintText: 'Office Name',
+                              controller: officeName,
+                              prefixIcon: Icons.home_outlined,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter some text';
                                 }
+                              },
                             ),
                             SizedBox(height: screenHeight(context) * 0.015),
-                            TextFromFildeComponent(
-                              hintText: '${localizer.translate("last name")}',
-                              controller: lastName,
-                              prefixIcon: Icons.person_outlined,
-                                validator: (value){
-                                  if (value == null || value.isEmpty) {
-                                    return '${localizer.translate("validate")}';
-                                  }
 
-                                }
-                            ),
-                            SizedBox(height: screenHeight(context) * 0.015),
                             TextFromFildeComponent(
-                              hintText: '${localizer.translate("phone")}',
-                              controller: phone,
-                              prefixIcon: Icons.phone_android,
-                              keyboardType: TextInputType.phone,
-                                validator: (value){
-                                  if (value == null || value.isEmpty) {
-                                    return '${localizer.translate("validate")}';
-                                  }
-
-                                }
-                            ),
-                            SizedBox(height: screenHeight(context) * 0.015),
-                            TextFromFildeComponent(
-                              hintText: '${localizer.translate("email")}',
+                              hintText: 'Email',
                               controller: email,
                               prefixIcon: Icons.email_outlined,
                               keyboardType: TextInputType.emailAddress,
                               validator: (value) {
-                                // التحقق إذا كان المدخل فارغًا
                                 if (value == null || value.isEmpty) {
-                                  return '${localizer.translate("validate")}';
+                                  return 'Please enter some text';
                                 }
-
-                                // التعبير المنتظم للتحقق من شكل الرابط
-                                String pattern =
-                                    r'[a-zA-Z0-9.-]+@gmail.com$';
-                                RegExp regex = RegExp(pattern);
-
-                                if (!regex.hasMatch(value)) {
-                                  return '${localizer.translate("email validate")}';
-                                }
-
-                                return null; // يعني أن التحقق ناجح
                               },
                             ),
                             SizedBox(height: screenHeight(context) * 0.015),
                             TextFromFildeComponent(
-                              hintText: '${localizer.translate("password")}',
-                              controller: password,
-                              prefixIcon: Icons.lock_outline,
-                                validator: (value){
-                                  if (value == null || value.isEmpty) {
-                                    return '${localizer.translate("validate")}';
-                                  }
-
+                              hintText: 'Phone',
+                              controller: phone,
+                              prefixIcon: Icons.phone_android_outlined,
+                              keyboardType: TextInputType.phone,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter some text';
                                 }
+                              },
                             ),
                             SizedBox(height: screenHeight(context) * 0.015),
                             TextFromFildeComponent(
-                              hintText: '${localizer.translate("password confirm")}',
-                              controller: passwordConfirm,
-                              prefixIcon: Icons.lock_outline,
-                                validator: (value){
-                                  if (value == null || value.isEmpty) {
-                                    return '${localizer.translate("validate")}';
-                                  }
-
+                              hintText: 'Profit Percentage',
+                              controller: profitPercentage,
+                              prefixIcon: Icons.percent,
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                    decimal: true,
+                                  ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter some text';
                                 }
+                              }, // لقبول أرقام عشرية
+                            ),
+                            SizedBox(height: screenHeight(context) * 0.015),
+                            DescriptionResizableField(
+                              controller: description,
+                            ),
+                            SizedBox(height: screenHeight(context) * 0.015),
+                            TextFromFildeComponent(
+                              hintText: 'passWord',
+                              controller: password,
+                              prefixIcon: Icons.lock_outline,
+                              keyboardType: TextInputType.visiblePassword,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter some text';
+                                }
+                              },
+                            ),
+                            SizedBox(height: screenHeight(context) * 0.015),
+                            TextFromFildeComponent(
+                              hintText: 'rePassWord',
+                              controller:passwordConfirm,
+                              prefixIcon: Icons.lock_outline,
+                              keyboardType: TextInputType.visiblePassword,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter some text';
+                                }
+                              },
                             ),
                             SizedBox(height: screenHeight(context) * 0.015),
                             Footer(
-                              text: "${localizer.translate("qustion1")}",
-                              textButton: '${localizer.translate("login")}',
+                              text: "Have Account?",
+                              textButton: 'Login',
                               onTap: () {
                                 Navigator.pop(context);
                               },
                             ),
                             SizedBox(height: screenHeight(context) * 0.05),
-                            Center(
-                              child: BlocConsumer<AuthCubit, AuthState>(
-                                listener: (context,state){
-                                  if(state is RegisterSuccessState){
-                                    navigateAndPop(context: context, page: MainScreen());                                  }
-                                },
-                                builder: (context, state) {
-                                  var cubit = AuthCubit.get(context);
-                                  return state is RegisterLoadState?Center(child: CircularProgressIndicator(color: mainColor1,),):SizedBox(
+                            BlocBuilder<AuthCubit, AuthState>(
+                              builder: (context, state) {
+                                var cubit = AuthCubit();
+                                return Center(
+                                  child: SizedBox(
                                     width: screenWidth(context) * 0.8,
                                     child: ButtomComponent(
-                                      text: '${localizer.translate("register")}',
+                                      text: 'Register',
                                       onPressed: () {
-                                        print(passwordConfirm.text);
-                                        print(password.text);
-                                        cubit.register(firstName.text, lastName.text, phone.text, email.text, password.text, password.text, context);
+                                        cubit.register(
+                                          officeName.text,
+                                          email.text,
+                                          phone.text,
+                                          profitPercentage.text,
+                                          description.text,
+                                          password.text,
+                                          passwordConfirm.text,
+                                          context,
+                                        );
                                       },
                                     ),
-                                  );
-                                },
-                              ),
+                                  ),
+                                );
+                              },
                             ),
                           ],
                         ),
@@ -186,7 +175,6 @@ class Register extends StatelessWidget {
           ),
         ),
       ),
-  ),
-);
+    );
   }
 }

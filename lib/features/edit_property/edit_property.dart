@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:manzal_office/core/component/buttom_component.dart';
+import 'package:manzal_office/core/component/circle_icon.dart';
+import 'package:manzal_office/core/component/navigator.dart';
+import 'package:manzal_office/core/component/section_component.dart';
+import 'package:manzal_office/core/component/text_buttom.dart';
+import 'package:manzal_office/core/component/text_from_filde_component.dart';
+import 'package:manzal_office/core/constant/color.dart';
+import 'package:manzal_office/features/add_property/component/add_image_component.dart';
+import 'package:manzal_office/features/edit_property/component/edit_contract_types_component.dart';
+import 'package:manzal_office/features/edit_property/component/edit_image_component.dart';
+import 'package:manzal_office/features/edit_property/component/edit_location_component.dart';
+import 'package:manzal_office/features/edit_property/component/edit_property_category_component.dart';
+import 'package:manzal_office/features/edit_property/component/edit_property_types_component.dart';
+import 'package:manzal_office/features/edit_property/controller/edit_property_cubit.dart';
 
-
-import '../../core/component/circle_icon.dart';
-import '../../core/component/section_component.dart';
-import '../../core/component/text_buttom.dart';
-import '../../core/component/text_from_filde_component.dart';
-import '../../core/constant/color.dart';
 import '../../core/constant/screen_size.dart';
-import 'component/edit_contract_types_component.dart';
-import 'component/edit_image_component.dart';
-import 'component/edit_location_component.dart';
-import 'component/edit_property_category_component.dart';
-import 'component/edit_property_types_component.dart';
-import 'controller/edit_property_cubit.dart';
 
 class EditPropertyPage extends StatelessWidget {
   const EditPropertyPage({super.key});
@@ -37,7 +39,7 @@ class EditPropertyPage extends StatelessWidget {
 
           title: Text('Edite Property',style: Theme.of(context).textTheme.titleSmall,),
           actions: [
-            TextButtonComponent(onPressed: () {  }, text: 'Save',),
+            TextButtonComponent(onPressed: () {  }, text: 'Save',textColor: mainColor1,),
           ],
         ),
         body: Padding(

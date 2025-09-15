@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.manzel"
+    package="com.example.manzal_office"
     android:versionCode="1"
     android:versionName="1.0.0" >
 
@@ -13,11 +13,8 @@
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!--
- Required to query activities that can process text, see:
+     Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and
          https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
 
@@ -29,19 +26,31 @@
 
             <data android:mimeType="text/plain" />
         </intent>
+        <!-- Added to check the default browser that will host the AuthFlow. -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+
+            <data android:scheme="http" />
+        </intent> <!-- Added to check if Chrome is installed for browser-based payment authentication (e.g. 3DS1). -->
+        <package android:name="com.android.chrome" /> <!-- Needs to be explicitly declared on Android R+ -->
+        <package android:name="com.google.android.apps.maps" />
     </queries>
 
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Permissions options for the `notification` group -->
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" /> <!-- Required by older versions of Google Play services to create IID tokens -->
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
 
     <permission
-        android:name="com.example.manzel.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+        android:name="com.example.manzal_office.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.example.manzel.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+    <uses-permission android:name="com.example.manzal_office.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
 
     <application
         android:name="android.app.Application"
@@ -49,9 +58,9 @@
         android:debuggable="true"
         android:extractNativeLibs="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="ِAqarGo" >
+        android:label="AqarGo_Captin" >
         <activity
-            android:name="com.example.manzel.MainActivity"
+            android:name="com.example.manzal_office.MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:exported="true"
             android:hardwareAccelerated="true"
@@ -83,6 +92,33 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+        <provider
+            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
+            android:authorities="com.example.manzal_office.flutter.image_provider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/flutter_image_picker_file_paths" />
+        </provider> <!-- Trigger Google Play services to install the backported photo picker module. -->
+        <service
+            android:name="com.google.android.gms.metadata.ModuleDependencies"
+            android:enabled="false"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.gms.metadata.MODULE_DEPENDENCIES" />
+            </intent-filter>
+
+            <meta-data
+                android:name="photopicker_activity:0:required"
+                android:value="" />
+        </service>
+
+        <activity
+            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+            android:exported="false"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 
         <service
             android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingBackgroundService"
@@ -116,13 +152,13 @@
                 android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseCoreRegistrar"
                 android:value="com.google.firebase.components.ComponentRegistrar" />
             <meta-data
+                android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
+                android:value="com.google.firebase.components.ComponentRegistrar" />
+            <meta-data
                 android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingKtxRegistrar"
                 android:value="com.google.firebase.components.ComponentRegistrar" />
             <meta-data
                 android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingRegistrar"
-                android:value="com.google.firebase.components.ComponentRegistrar" />
-            <meta-data
-                android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
                 android:value="com.google.firebase.components.ComponentRegistrar" />
             <meta-data
                 android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsKtxRegistrar"
@@ -143,9 +179,215 @@
 
         <provider
             android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingInitProvider"
-            android:authorities="com.example.manzel.flutterfirebasemessaginginitprovider"
+            android:authorities="com.example.manzal_office.flutterfirebasemessaginginitprovider"
             android:exported="false"
             android:initOrder="99" />
+
+        <activity
+            android:name="com.stripe.android.financialconnections.FinancialConnectionsSheetRedirectActivity"
+            android:exported="true"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- Returning from app2app: return_url is triggered to reopen web AuthFlow and poll accounts. -->
+                <data
+                    android:host="link-accounts"
+                    android:pathPrefix="/com.example.manzal_office/authentication_return"
+                    android:scheme="stripe-auth" />
+
+                <!-- Returning from app2app: return_url is triggered to reopen native AuthFlow and poll accounts. -->
+                <data
+                    android:host="link-native-accounts"
+                    android:pathPrefix="/com.example.manzal_office/authentication_return"
+                    android:scheme="stripe-auth" />
+
+                <!-- End of web AuthFlow success and cancel URIs that begin with "stripe-auth://link-accounts/{app-id}/...” -->
+                <data
+                    android:host="link-accounts"
+                    android:path="/com.example.manzal_office/success"
+                    android:scheme="stripe-auth" />
+                <data
+                    android:host="link-accounts"
+                    android:path="/com.example.manzal_office/cancel"
+                    android:scheme="stripe-auth" />
+
+                <!-- Opening app2app: Web flow triggers stripe-auth://native-redirect/{app-id}/http://web-that-redirects-to-native -->
+                <data
+                    android:host="native-redirect"
+                    android:pathPrefix="/com.example.manzal_office"
+                    android:scheme="stripe-auth" />
+
+                <!-- Accepts success/cancel/fail URIs that begin with "stripe://auth-redirect” -->
+                <data
+                    android:host="auth-redirect"
+                    android:pathPrefix="/com.example.manzal_office"
+                    android:scheme="stripe" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.stripe.android.financialconnections.FinancialConnectionsSheetActivity"
+            android:exported="false"
+            android:theme="@style/StripeFinancialConnectionsDefaultTheme" />
+        <activity
+            android:name="com.stripe.android.financialconnections.ui.FinancialConnectionsSheetNativeActivity"
+            android:exported="false"
+            android:theme="@style/StripeFinancialConnectionsDefaultTheme"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.stripe.android.paymentsheet.PaymentSheetActivity"
+            android:exported="false"
+            android:theme="@style/StripePaymentSheetDefaultTheme" />
+        <activity
+            android:name="com.stripe.android.paymentsheet.PaymentOptionsActivity"
+            android:exported="false"
+            android:theme="@style/StripePaymentSheetDefaultTheme" />
+        <activity
+            android:name="com.stripe.android.customersheet.CustomerSheetActivity"
+            android:exported="false"
+            android:theme="@style/StripePaymentSheetDefaultTheme" />
+        <activity
+            android:name="com.stripe.android.paymentsheet.addresselement.AddressElementActivity"
+            android:exported="false"
+            android:theme="@style/StripePaymentSheetDefaultTheme" />
+        <activity
+            android:name="com.stripe.android.paymentsheet.paymentdatacollection.bacs.BacsMandateConfirmationActivity"
+            android:exported="false"
+            android:theme="@style/StripePaymentSheetDefaultTheme" />
+        <activity
+            android:name="com.stripe.android.paymentsheet.paymentdatacollection.polling.PollingActivity"
+            android:exported="false"
+            android:theme="@style/StripePaymentSheetDefaultTheme" />
+        <activity
+            android:name="com.stripe.android.paymentsheet.ui.SepaMandateActivity"
+            android:exported="false"
+            android:theme="@style/StripePaymentSheetDefaultTheme" />
+        <activity
+            android:name="com.stripe.android.paymentsheet.ExternalPaymentMethodProxyActivity"
+            android:exported="false"
+            android:theme="@style/StripePayLauncherDefaultTheme" />
+        <activity
+            android:name="com.stripe.android.paymentsheet.paymentdatacollection.cvcrecollection.CvcRecollectionActivity"
+            android:theme="@style/StripePaymentSheetDefaultTheme" />
+        <activity
+            android:name="com.stripe.android.paymentelement.embedded.form.FormActivity"
+            android:theme="@style/StripePaymentSheetDefaultTheme" />
+        <activity
+            android:name="com.stripe.android.paymentelement.embedded.manage.ManageActivity"
+            android:theme="@style/StripePaymentSheetDefaultTheme" />
+        <activity
+            android:name="com.stripe.android.link.LinkActivity"
+            android:autoRemoveFromRecents="true"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenLayout|screenSize|smallestScreenSize"
+            android:exported="false"
+            android:label="@string/stripe_link"
+            android:theme="@style/StripeLinkBaseTheme"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.stripe.android.link.LinkForegroundActivity"
+            android:autoRemoveFromRecents="true"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenLayout|screenSize|smallestScreenSize"
+            android:launchMode="singleTop"
+            android:theme="@style/StripeTransparentTheme" />
+        <activity
+            android:name="com.stripe.android.link.LinkRedirectHandlerActivity"
+            android:autoRemoveFromRecents="true"
+            android:exported="true"
+            android:launchMode="singleInstance"
+            android:theme="@style/StripeTransparentTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="complete"
+                    android:path="/com.example.manzal_office"
+                    android:scheme="link-popup" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.stripe.android.ui.core.cardscan.CardScanActivity"
+            android:exported="false"
+            android:theme="@style/StripePaymentSheetDefaultTheme" />
+        <activity
+            android:name="com.stripe.android.view.PaymentAuthWebViewActivity"
+            android:exported="false"
+            android:theme="@style/StripeDefaultTheme" />
+        <activity
+            android:name="com.stripe.android.view.PaymentRelayActivity"
+            android:exported="false"
+            android:theme="@style/StripeTransparentTheme" />
+        <!--
+        Set android:launchMode="singleTop" so that the StripeBrowserLauncherActivity instance that
+        launched the browser Activity will also handle the return URL deep link.
+        -->
+        <activity
+            android:name="com.stripe.android.payments.StripeBrowserLauncherActivity"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:theme="@style/StripeTransparentTheme" />
+        <activity
+            android:name="com.stripe.android.payments.StripeBrowserProxyReturnActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:theme="@style/StripeTransparentTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- Must match `DefaultReturnUrl#value`. -->
+                <data
+                    android:host="payment_return_url"
+                    android:path="/com.example.manzal_office"
+                    android:scheme="stripesdk" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.stripe.android.payments.core.authentication.threeds2.Stripe3ds2TransactionActivity"
+            android:exported="false"
+            android:theme="@style/StripeDefaultTheme" />
+        <activity
+            android:name="com.stripe.android.googlepaylauncher.GooglePayLauncherActivity"
+            android:exported="false"
+            android:theme="@style/StripeGooglePayDefaultTheme" />
+        <activity
+            android:name="com.stripe.android.googlepaylauncher.GooglePayPaymentMethodLauncherActivity"
+            android:exported="false"
+            android:theme="@style/StripeGooglePayDefaultTheme" />
+        <activity
+            android:name="com.stripe.android.payments.paymentlauncher.PaymentLauncherConfirmationActivity"
+            android:exported="false"
+            android:theme="@style/StripePayLauncherDefaultTheme" />
+        <activity
+            android:name="com.stripe.android.payments.bankaccount.ui.CollectBankAccountActivity"
+            android:exported="false"
+            android:theme="@style/StripeTransparentTheme" />
+        <activity
+            android:name="com.stripe.android.stripe3ds2.views.ChallengeActivity"
+            android:exported="false"
+            android:theme="@style/Stripe3DS2Theme" />
+
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="com.example.manzal_office.androidx-startup"
+            android:exported="false" >
+            <meta-data
+                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+                android:value="androidx.startup" />
+        </provider>
 
         <receiver
             android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
@@ -170,40 +412,9 @@
             <intent-filter android:priority="-500" >
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-        </service>
-
-        <provider
-            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
-            android:authorities="com.example.manzel.flutter.image_provider"
-            android:exported="false"
-            android:grantUriPermissions="true" >
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/flutter_image_picker_file_paths" />
-        </provider> <!-- Trigger Google Play services to install the backported photo picker module. -->
-        <service
-            android:name="com.google.android.gms.metadata.ModuleDependencies"
-            android:enabled="false"
-            android:exported="false" >
-            <intent-filter>
-                <action android:name="com.google.android.gms.metadata.MODULE_DEPENDENCIES" />
-            </intent-filter>
-
-            <meta-data
-                android:name="photopicker_activity:0:required"
-                android:value="" />
-        </service>
-
-        <activity
-            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
-            android:exported="false"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-
+        </service> <!-- Needs to be explicitly declared on P+ -->
         <uses-library
-            android:name="androidx.window.extensions"
-            android:required="false" />
-        <uses-library
-            android:name="androidx.window.sidecar"
+            android:name="org.apache.http.legacy"
             android:required="false" />
 
         <activity
@@ -213,21 +424,17 @@
 
         <provider
             android:name="com.google.firebase.provider.FirebaseInitProvider"
-            android:authorities="com.example.manzel.firebaseinitprovider"
+            android:authorities="com.example.manzal_office.firebaseinitprovider"
             android:directBootAware="true"
             android:exported="false"
             android:initOrder="100" />
-        <provider
-            android:name="androidx.startup.InitializationProvider"
-            android:authorities="com.example.manzel.androidx-startup"
-            android:exported="false" >
-            <meta-data
-                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-                android:value="androidx.startup" />
-            <meta-data
-                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-                android:value="androidx.startup" />
-        </provider>
+
+        <uses-library
+            android:name="androidx.window.extensions"
+            android:required="false" />
+        <uses-library
+            android:name="androidx.window.sidecar"
+            android:required="false" />
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -269,6 +476,15 @@
         <receiver
             android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
             android:exported="false" />
+
+        <meta-data
+            android:name="aia-compat-api-min-version"
+            android:value="1" /> <!-- The activities will be merged into the manifest of the hosting app. -->
+        <activity
+            android:name="com.google.android.play.core.common.PlayCoreDialogWrapperActivity"
+            android:exported="false"
+            android:stateNotNeeded="true"
+            android:theme="@style/Theme.PlayCore.Transparent" />
     </application>
 
 </manifest>

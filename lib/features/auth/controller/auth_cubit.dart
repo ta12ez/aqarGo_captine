@@ -1,14 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:manzel/core/component/showToast.dart';
-import 'package:manzel/core/network/remote/apis_const.dart';
-import 'package:manzel/core/network/remote/header_constance.dart';
-import 'package:meta/meta.dart';
+import 'package:manzal_office/features/home_page/home_page.dart';
 import '../../../core/component/navigator.dart';
 import '../../../core/network/local/cachHelper.dart';
+import '../../../core/network/remote/apis_const.dart';
 import '../../../core/network/remote/dioHelper.dart';
-import '../../../main_screen/main_screen.dart';
+import '../../../core/network/remote/header_constance.dart';
+
 
 part 'auth_state.dart';
 
@@ -17,9 +17,11 @@ class AuthCubit extends Cubit<AuthState> {
   static AuthCubit get(context) => BlocProvider.of(context);
 
 
-  void login (String email,String password,context) async{
+  void login (String email,String password,context) {
     emit(LoginLoadState());
-
+    print("test");
+    print(email);
+    print(password);
     DioHelper.postData(url: ApiConstance.login
         ,data: {
       "email":"$email",
@@ -29,85 +31,86 @@ class AuthCubit extends Cubit<AuthState> {
 
       if(value.statusCode ==200) {
         print('success');
+        emit(LoginSuccessState());
         print(value.data["token"]);
-        CacheHelper.saveData(key: "token", value:"${value.data["token"]}" ).then((valuee)async{
+        CacheHelper.saveData(key: "token", value:"${value.data["token"]}" ).then((valuee){
           if(valuee){
             HeaderConstance.token = value.data["token"];
-           await saveUserToken(fcmToken: HeaderConstance.fcmToken);
+            navigatTo(context: context, page: HomePage());
+            saveUserToken(fcmToken: HeaderConstance.fcmToken);
           }
         });
-        emit(LoginSuccessState());
-
       }
     }).catchError(( e){
       if (e is DioException) {
         if (e.response != null) {
           print("Error: ${e.response?.data}");
-          showToast(msg:"الرجاء التأكد من صحة الايميل و كلمة السر", state: ToastState.ERORR);
+        //  ShowTaost(msg:"الرجاء التأكد من صحة الايميل و كلمة السر", state: ToastState.ERORR);
         } else {
           print("Error: ${e.error}");
-          showToast(msg: "  تأكد من جودة الاتصال او صحة URL", state: ToastState.WARNING);
+        //  ShowTaost(msg: "  تأكد من جودة الاتصال او صحة URL", state: ToastState.WARNING);
         }
       } else {
         print("Unexpected error: $e");
-        showToast(msg: "حدث خطأ غير متوقع", state: ToastState.ERORR);
+      //  ShowTaost(msg: "حدث خطأ غير متوقع", state: ToastState.ERORR);
       }
       emit(LoginErrorState());
     });
   }
 
 
-  void register (String firstName,String lastName,String phone,String email,String password,String passwordConfirme,context) async{
+  void register (String officeName,String email,String phone,String profitPercentage,String description,String password,String confirmPassword,context) {
     emit(RegisterLoadState());
     DioHelper.postData(url: ApiConstance.register
         ,data: {
-          "FirstName":"$firstName",
-          "LastName":"$lastName",
-          "PhoneNumber":"$phone",
+          "Office_name":"$officeName",
           "email":"$email",
+          "PhoneNumberOffice":"$phone",
+          "percentage":"$profitPercentage",
+          "description":"$description",
           "password":"$password",
-        "c_password":"$passwordConfirme",
+        "c_password":"$confirmPassword",
         }).then((value) {
       print('success1');
 
-      if(value.statusCode ==200) {
+      if(value.statusCode ==200||value.statusCode ==201) {
         print('success');
+        emit(RegisterSuccessState());
         print(value.data["token"]);
-        CacheHelper.saveData(key: "token", value:"${value.data["token"]}" ).then((valuee)async{
+        CacheHelper.saveData(key: "token", value:"${value.data["token"]}" ).then((valuee){
           if(valuee){
+            print("nav");
             HeaderConstance.token = value.data["token"];
-            await saveUserToken(fcmToken: HeaderConstance.fcmToken);
-
+            navigatTo(context: context, page: HomePage());
+            saveUserToken(fcmToken: HeaderConstance.fcmToken);
           }
         });
-        emit(RegisterSuccessState());
-
       }
     }).catchError(( e){
       if (e is DioException) {
         if (e.response != null) {
           print("Error: ${e.response?.data}");
-          showToast(msg:"الرجاء ادخال كامل المعلومات ", state: ToastState.ERORR);
+          //  ShowTaost(msg:"الرجاء التأكد من صحة الايميل و كلمة السر", state: ToastState.ERORR);
         } else {
-          print("Error1: ${e.message}");
-            showToast(msg: "  تأكد من جودة الاتصال او صحة URL", state: ToastState.WARNING);
+          print("Error1: ${e.toString()}");
+          //  ShowTaost(msg: "  تأكد من جودة الاتصال او صحة URL", state: ToastState.WARNING);
         }
       } else {
         print("Unexpected error: $e");
-        showToast(msg: "حدث خطأ غير متوقع", state: ToastState.ERORR);
+        //  ShowTaost(msg: "حدث خطأ غير متوقع", state: ToastState.ERORR);
       }
       emit(RegisterErrorState());
     });
   }
 
-  Future<void> saveUserToken({required String fcmToken}) async{
+  void saveUserToken({required String fcmToken}) {
     emit(SaveTokenLoadingState());
-   await DioHelper.postData(
-      url: ApiConstance.saveUserToken,
-      token: HeaderConstance.token,
-      data:{
-        "fcm_token":"$fcmToken"
-      }
+    DioHelper.postData(
+        url: ApiConstance.saveOfficeToken,
+        token: HeaderConstance.token,
+        data:{
+          "fcm_token":"$fcmToken"
+        }
     ).then((value) {
       if (value.statusCode == 200) {
         emit(SaveTokenSuccessState());

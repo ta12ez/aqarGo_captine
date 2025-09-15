@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:manzel/core/constant/app_localizations.dart';
-import 'package:manzel/core/constant/color.dart';
-import 'package:manzel/core/constant/screen_size.dart';
-import 'package:manzel/main_screen/controller/main_cubit.dart';
+import 'package:manzal_office/core/constant/screen_size.dart';
+import 'package:manzal_office/features/home_page/controller/home_cubit.dart';
+
+import '../../core/constant/app_localizations.dart';
+import '../../core/constant/color.dart';
 
 class LanguagePage extends StatelessWidget {
   const LanguagePage({super.key});
@@ -13,7 +14,7 @@ class LanguagePage extends StatelessWidget {
     final localizer = AppLocalizations.of(context);
   final isArabic = Localizations.localeOf(context).languageCode == 'ar';
     final isEnglish = Localizations.localeOf(context).languageCode == 'en';
-MainCubit mainBloc = MainCubit.get(context);
+HomeCubit mainBloc = HomeCubit.get(context);
   return Directionality(
     textDirection: isArabic ? TextDirection.rtl : TextDirection.ltr,
 child: Scaffold(
@@ -27,7 +28,7 @@ body: Padding(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
   children: [
-    Text("${localizer.translate('choose_language')}:",style: Theme.of(context).textTheme.titleSmall?.copyWith(color: mainColor2),),
+    Text("${localizer.translate('choose language')}:",style: Theme.of(context).textTheme.titleSmall?.copyWith(color: mainColor2),),
     SizedBox(height: screenHeight(context)*0.05,),
 
     buildLanguageItem(onTap: () {mainBloc.changeLanguage(newLocale: Locale('en'));  }, context: context, con: isEnglish, title: localizer.translate('english')),

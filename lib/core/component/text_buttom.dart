@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:manzel/core/constant/color.dart';
+import 'package:manzal_office/core/constant/color.dart';
 
 class TextButtonComponent extends StatelessWidget {
   final VoidCallback onPressed;
   final String text;
-  const TextButtonComponent({super.key, required this.onPressed, required this.text});
+  final Color textColor;
+  const TextButtonComponent({super.key, required this.onPressed, required this.text,  this.textColor=mainColor2});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class TextButtonComponent extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         text,
-        style: Theme.of(context).textTheme.bodySmall?.copyWith(color: mainColor2),
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(color: textColor),
       ),
     );
   }

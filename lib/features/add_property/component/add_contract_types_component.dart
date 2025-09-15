@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:manzel/core/constant/color.dart';
-import 'package:manzel/features/add_property/controller/add_property_cubit.dart';
+import 'package:manzal_office/features/add_property/controller/add_property_cubit.dart';
 
-import '../../../core/constant/app_localizations.dart';
+import '../../../core/constant/color.dart';
 
 class AddContractTypesComponent extends StatelessWidget {
   const AddContractTypesComponent({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final localizer = AppLocalizations.of(context);
-    final isArabic = Localizations.localeOf(context).languageCode == 'ar';
-    final isEnglish = Localizations.localeOf(context).languageCode == 'en';
     return BlocBuilder<AddPropertyCubit, AddPropertyState>(
       builder: (context, state) {
         final cubit = AddPropertyCubit.get(context);
@@ -24,13 +20,13 @@ class AddContractTypesComponent extends StatelessWidget {
               index,
               ) {
             return GestureDetector(
-            onTap: () {
-            cubit.chooseContractType(
-            type: cubit.contractTypes[index],
-            );
-            },
-            child: Container(
-            decoration: BoxDecoration(
+              onTap: () {
+                cubit.chooseContractType(
+                  type: cubit.contractTypes[index],
+                );
+              },
+              child: Container(
+                decoration: BoxDecoration(
                   color:
                   cubit.contractTypes[index] ==
                       cubit.contractType
@@ -46,7 +42,7 @@ class AddContractTypesComponent extends StatelessWidget {
                   vertical: 5,
                 ),
                 child: Text(
-                  localizer.translate("${cubit.contractTypes[index]}"),
+                  cubit.contractTypes[index],
                   style: Theme.of(
                     context,
                   ).textTheme.bodyMedium?.copyWith(

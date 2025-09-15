@@ -2,18 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:manzel/core/component/back_groung.dart';
-import 'package:manzel/core/component/buttom_component.dart';
-import 'package:manzel/core/component/circle_icon.dart';
-import 'package:manzel/core/component/navigator.dart';
-import 'package:manzel/core/component/text_from_filde_component.dart';
-import 'package:manzel/core/constant/color.dart';
-import 'package:manzel/core/constant/screen_size.dart';
-import 'package:manzel/features/add_property/add_property_first_page.dart';
-import 'package:manzel/features/add_property/add_property_second_page.dart';
-import 'package:manzel/features/add_property/add_property_third_page.dart';
-import 'package:manzel/features/add_property/controller/add_property_cubit.dart';
-import 'package:manzel/features/home/component/section_component.dart';
+import 'package:manzal_office/core/component/navigator.dart';
+import 'package:manzal_office/core/constant/screen_size.dart';
+import 'package:manzal_office/features/add_property/add_property_first_page.dart';
+import 'package:manzal_office/features/add_property/add_property_second_page.dart';
+import 'package:manzal_office/features/add_property/controller/add_property_cubit.dart';
+
+import '../../core/constant/color.dart' show mainColor1, mainColor2;
 
 class AddProperty extends StatelessWidget {
   AddProperty({super.key});
@@ -25,7 +20,7 @@ class AddProperty extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => AddPropertyCubit()..getState()..getRegion()..getAllOffice(),
+      create: (_) => AddPropertyCubit()..getState()..getRegion(),
       child: Scaffold(
         body: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -37,18 +32,18 @@ class AddProperty extends StatelessWidget {
             },
             builder: (context, state) {
               var cubit=AddPropertyCubit.get(context);
-              if(state is GetStateLoading || state is GetRegionLoading || state is GetOfficeLoading){
+              if(state is GetStateLoading || state is GetRegionLoading ){
                 return Center(
                   child: CircularProgressIndicator(color: mainColor1,),
                 );
               }
-              else if(cubit.officesmodel!=null&&cubit.states!=null&&cubit.reagions!=null){
+              else if(cubit.states!=null&&cubit.reagions!=null){
                 return Column(
                   children: [
 
                     SizedBox(height: screenHeight(context)*0.01,),
                     Row(
-                      children: List.generate(3 * 2 - 1, (index) {
+                      children: List.generate(2 * 2 - 1, (index) {
                         if (index.isEven) {
                           int stepIndex = index ~/ 2;
                           bool isSelected = stepIndex == cubit.currentPageIndex;
@@ -106,7 +101,7 @@ class AddProperty extends StatelessWidget {
                         children: [
                           AddPropertyFirstPage(),
                           AddPropertySecondPage(),
-                          AddPropertyThirdPage(),
+
                         ],
                       ),
                     ),

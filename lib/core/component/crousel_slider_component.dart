@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:manzel/core/constant/screen_size.dart';
+import 'package:manzal_office/core/constant/screen_size.dart';
 
 class CrouselSliderComponent extends StatelessWidget {
   final List<String> images;

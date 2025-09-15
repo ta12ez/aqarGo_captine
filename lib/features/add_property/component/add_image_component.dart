@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:manzel/core/constant/color.dart';
-import 'package:manzel/core/constant/screen_size.dart';
-import 'package:manzel/features/add_property/controller/add_property_cubit.dart';
+import 'package:manzal_office/core/constant/color.dart';
+import 'package:manzal_office/core/constant/screen_size.dart';
+import 'package:manzal_office/features/add_property/controller/add_property_cubit.dart';
 
 class AddImageComponent extends StatelessWidget {
   const AddImageComponent({super.key});

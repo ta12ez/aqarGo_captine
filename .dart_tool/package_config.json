@@ -266,6 +266,12 @@
       "languageVersion": "3.6"
     },
     {
+      "name": "flutter_stripe",
+      "rootUri": "file:///C:/Users/mhmou/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_stripe-11.5.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///C:/scr/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -284,14 +290,20 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "freezed_annotation",
+      "rootUri": "file:///C:/Users/mhmou/AppData/Local/Pub/Cache/hosted/pub.dev/freezed_annotation-2.4.4",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "get_it",
-      "rootUri": "file:///C:/Users/mhmou/AppData/Local/Pub/Cache/hosted/pub.dev/get_it-8.2.0",
+      "rootUri": "file:///C:/Users/mhmou/AppData/Local/Pub/Cache/hosted/pub.dev/get_it-8.0.3",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
     {
       "name": "google_fonts",
-      "rootUri": "file:///C:/Users/mhmou/AppData/Local/Pub/Cache/hosted/pub.dev/google_fonts-6.3.0",
+      "rootUri": "file:///C:/Users/mhmou/AppData/Local/Pub/Cache/hosted/pub.dev/google_fonts-6.2.1",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -321,7 +333,7 @@
     },
     {
       "name": "image_picker_android",
-      "rootUri": "file:///C:/Users/mhmou/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_android-0.8.12+24",
+      "rootUri": "file:///C:/Users/mhmou/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_android-0.8.12+23",
       "packageUri": "lib/",
       "languageVersion": "3.6"
     },
@@ -372,6 +384,12 @@
       "rootUri": "file:///C:/Users/mhmou/AppData/Local/Pub/Cache/hosted/pub.dev/js-0.6.7",
       "packageUri": "lib/",
       "languageVersion": "2.19"
+    },
+    {
+      "name": "json_annotation",
+      "rootUri": "file:///C:/Users/mhmou/AppData/Local/Pub/Cache/hosted/pub.dev/json_annotation-4.9.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
     },
     {
       "name": "leak_tracker",
@@ -620,6 +638,24 @@
       "languageVersion": "3.1"
     },
     {
+      "name": "stripe_android",
+      "rootUri": "file:///C:/Users/mhmou/AppData/Local/Pub/Cache/hosted/pub.dev/stripe_android-11.5.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "stripe_ios",
+      "rootUri": "file:///C:/Users/mhmou/AppData/Local/Pub/Cache/hosted/pub.dev/stripe_ios-11.5.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "stripe_platform_interface",
+      "rootUri": "file:///C:/Users/mhmou/AppData/Local/Pub/Cache/hosted/pub.dev/stripe_platform_interface-11.5.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "synchronized",
       "rootUri": "file:///C:/Users/mhmou/AppData/Local/Pub/Cache/hosted/pub.dev/synchronized-3.3.1",
       "packageUri": "lib/",
@@ -734,13 +770,13 @@
       "languageVersion": "3.2"
     },
     {
-      "name": "manzel",
+      "name": "manzal_office",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "3.7"
     }
   ],
-  "generated": "2025-09-14T07:17:13.569096Z",
+  "generated": "2025-09-14T07:07:00.861809Z",
   "generator": "pub",
   "generatorVersion": "3.7.0",
   "flutterRoot": "file:///C:/scr/flutter",

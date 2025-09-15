@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:manzel/core/constant/color.dart';
-import 'package:manzel/core/constant/screen_size.dart' ;
+import 'package:manzal_office/core/constant/color.dart';
+import 'package:manzal_office/core/constant/screen_size.dart';
 
 class Header extends StatelessWidget {
   final String? headerText;

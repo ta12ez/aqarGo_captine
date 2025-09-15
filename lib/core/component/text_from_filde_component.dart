@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:manzel/core/constant/color.dart';
-import 'package:manzel/core/constant/screen_size.dart';
+import 'package:manzal_office/core/constant/color.dart';
 
 class TextFromFildeComponent extends StatelessWidget {
   final int maxLines;

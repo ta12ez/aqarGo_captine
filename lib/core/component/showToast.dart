@@ -8,13 +8,13 @@ Color chooseToastColor(ToastState state) {
   Color color;
   switch (state) {
     case ToastState.SUCCESS:
-      color = Colors.green.shade500;
+      color = Colors.green;
       break;
     case ToastState.ERORR:
-      color = Colors.red.shade500;
+      color = Colors.red;
       break;
     case ToastState.WARNING:
-      color = Colors.amber.shade500;
+      color = Colors.amber;
       break;
   }
   return color;

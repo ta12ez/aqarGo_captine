@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:manzel/core/constant/color.dart';
-import 'package:manzel/core/constant/screen_size.dart';
+import 'package:manzal_office/core/constant/color.dart';
+import 'package:manzal_office/core/constant/screen_size.dart';
 
 class SearchTextfild extends StatelessWidget {
   bool autofocus = false;
   bool enabled = true;
-  String hintText ="Search";
   VoidCallback? onTap;
   VoidCallback? onEditingComplete;
   TextEditingController? searchController ;
-   SearchTextfild({super.key,required this.autofocus,required this.enabled,required this.hintText,this.onTap,this.onEditingComplete,this.searchController});
+   SearchTextfild({super.key,required this.autofocus,required this.enabled,this.onTap,this.onEditingComplete,this.searchController});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +23,7 @@ class SearchTextfild extends StatelessWidget {
         padding:  EdgeInsets.symmetric(horizontal: screenWidth(context)*0.01,vertical: screenHeight(context)*0.01),
         child: TextFormField(
           decoration: InputDecoration(
-            hintText: hintText,
+            hintText: "Search House,Apartment,etc...",
             hintStyle: Theme.of(context).textTheme.bodySmall,
             prefixIcon: Icon(Icons.search),
             border: InputBorder.none,
@@ -34,7 +33,6 @@ class SearchTextfild extends StatelessWidget {
           enabled: enabled,
           onTap:onTap ,
           onEditingComplete:onEditingComplete ,
-
         ),
       ),
     );

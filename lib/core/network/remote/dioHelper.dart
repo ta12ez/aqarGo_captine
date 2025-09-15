@@ -9,6 +9,7 @@ class DioHelper {
       connectTimeout:Duration(seconds: 10),
       receiveTimeout: Duration(seconds: 10),
       receiveDataWhenStatusError: true,
+
     ));
   }
 

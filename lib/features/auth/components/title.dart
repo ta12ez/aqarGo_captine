@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:manzel/core/constant/screen_size.dart';
+import 'package:manzal_office/core/constant/screen_size.dart';
 
 class TitleComponent extends StatelessWidget {
   final String title1;
@@ -14,12 +14,12 @@ class TitleComponent extends StatelessWidget {
       children: [
         Row(
           children: [
-            Text(title1,style: Theme.of(context).textTheme.titleMedium,),
-            Text(title2,style: Theme.of(context).textTheme.titleLarge,),],
+            Text(title1,style: Theme.of(context).textTheme.bodyLarge,),
+            Text(title2,style: Theme.of(context).textTheme.titleSmall,),],
 
         ),
         SizedBox(height: screenHeight(context)*0.03,),
-        Text(disc,style: Theme.of(context).textTheme.bodyMedium,),
+        Text(disc,style: Theme.of(context).textTheme.bodySmall,),
 
       ],
     );

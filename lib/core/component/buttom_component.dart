@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:manzel/core/constant/color.dart';
-import 'package:manzel/core/constant/screen_size.dart';
+import 'package:manzal_office/core/constant/color.dart';
+import 'package:manzal_office/core/constant/screen_size.dart';
 
 class ButtomComponent extends StatelessWidget {
   final String text;
@@ -26,22 +26,25 @@ class ButtomComponent extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        padding:  EdgeInsets.symmetric(horizontal: screenWidth(context)*0.1, vertical: screenHeight(context)*0.025),
+        padding:  EdgeInsets.symmetric(horizontal: 25, vertical: 15),
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
           if(icon !=null)
           Icon(icon,color: whitColor,),
           if(icon !=null)
           SizedBox(width: screenWidth(context)*0.01,),
-          Text(
-            text,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Cairo',
-              color: Colors.white,
+          Flexible(
+            child: Text(
+              text,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Cairo',
+                color: Colors.white,
+              ),
             ),
           ),
 

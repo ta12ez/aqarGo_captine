@@ -7,6 +7,25 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:586667764087:android:e18dd8d71ad3c11e4ad972",
+        "android_client_info": {
+          "package_name": "com.example.manzal_office"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlHhfoKPs7UBMl-6obbXwbrmjMYzgwJrs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:586667764087:android:921cfee4bfd20ae54ad972",
         "android_client_info": {
           "package_name": "com.example.manzel"

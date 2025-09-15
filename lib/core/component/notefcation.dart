@@ -1,8 +1,9 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-
-import '../network/remote/header_constance.dart';
+import 'package:manzal_office/core/network/remote/header_constance.dart';
 
 class NotificationService {
+  
+
   final FirebaseMessaging _messaging = FirebaseMessaging.instance;
 
   Future<void> initNotifications() async {
@@ -28,8 +29,7 @@ class NotificationService {
 
   Future<void> _printToken() async {
     String? token = await _messaging.getToken();
-    print('📱 FCM Token: $token');
-    HeaderConstance.fcmToken= token!;
+    HeaderConstance.fcmToken=token!;
     print(HeaderConstance.fcmToken);
   }
 

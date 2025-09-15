@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:manzel/core/constant/color.dart';
+import 'package:manzal_office/core/constant/color.dart';
 
 
 //light theme
@@ -10,7 +10,9 @@ ThemeData lightTheme = ThemeData(
    iconTheme: IconThemeData(
      color: blackColor,
    ),
-
+// cardTheme: CardTheme(
+//   color: cardColor,
+// ),
      cardColor:cardColor,
     appBarTheme:   AppBarTheme(
 actionsPadding: EdgeInsets.all(5),
@@ -60,6 +62,9 @@ ThemeData darkTheme = ThemeData(
     dialogBackgroundColor:  Colors.black,
 
     brightness: Brightness.dark,
+    // cardTheme: CardTheme(
+    //   color: Colors.grey[200]?.withAlpha(20),
+    // ),
     cardColor: Colors.grey[200]?.withAlpha(20),
     appBarTheme:  const AppBarTheme(
       color: Colors.black54,

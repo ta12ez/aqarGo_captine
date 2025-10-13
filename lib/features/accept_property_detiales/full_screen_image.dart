@@ -82,7 +82,6 @@ class _FullScreenViewerState extends State<FullScreenViewer> {
               ),
             ),
 
-            // ✅ القائمة الجانبية للصور المصغرة مع التحديد والضغط للتغيير
             Positioned(
               bottom: 16,
               child: SizedBox(

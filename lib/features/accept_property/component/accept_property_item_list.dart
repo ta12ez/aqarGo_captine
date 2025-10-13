@@ -11,7 +11,7 @@ class AcceptPropertyItemList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: screenHeight(context)*0.3,
+      height: screenHeight(context)*0.25,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) => AcceptPropertyItemCardComponent(property: properties![index],),

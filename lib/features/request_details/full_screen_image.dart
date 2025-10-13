@@ -27,7 +27,6 @@ class _FullScreenViewerState extends State<FullScreenViewer> {
     currentIndex = widget.initialIndex;
     _controller = PageController(initialPage: widget.initialIndex);
 
-    // متابعة التمرير لتحديث currentIndex
     _controller.addListener(() {
       final page = _controller.page?.round();
       if (page != null && page != currentIndex) {
@@ -69,7 +68,6 @@ class _FullScreenViewerState extends State<FullScreenViewer> {
               },
             ),
 
-            // زر الإغلاق
             Positioned(
               top: 10,
               left: 10,
@@ -82,7 +80,6 @@ class _FullScreenViewerState extends State<FullScreenViewer> {
               ),
             ),
 
-            // ✅ القائمة الجانبية للصور المصغرة مع التحديد والضغط للتغيير
             Positioned(
               bottom: 16,
               child: SizedBox(

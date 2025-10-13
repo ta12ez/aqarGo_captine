@@ -109,7 +109,7 @@ class Login extends StatelessWidget {
                                 var cubit = AuthCubit.get(context);
                                 if(state is LoginLoadState){
                                   return Center(child: CircularProgressIndicator(color: mainColor1,),);
-                                }
+                                }else{
                                 return Center(
                                   child: Container(
                                     width: screenWidth(context) * 0.8,
@@ -128,7 +128,7 @@ class Login extends StatelessWidget {
                                       },
                                     ),
                                   ),
-                                );
+                                );}
                               },
                             ),
                           ],

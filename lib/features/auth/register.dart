@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:manzal_office/core/component/back_groung.dart';
 import 'package:manzal_office/core/component/buttom_component.dart';
 import 'package:manzal_office/core/component/text_from_filde_component.dart';
+import 'package:manzal_office/core/constant/color.dart';
 import 'package:manzal_office/core/constant/screen_size.dart';
 import 'package:manzal_office/features/auth/components/description_text_field.dart';
 import 'package:manzal_office/features/auth/components/footer.dart';
@@ -142,6 +143,9 @@ class Register extends StatelessWidget {
                             BlocBuilder<AuthCubit, AuthState>(
                               builder: (context, state) {
                                 var cubit = AuthCubit();
+                                if(state is RegisterLoadState){
+                                  return Center( child: CircularProgressIndicator(color: mainColor1,),);
+                                }else{
                                 return Center(
                                   child: SizedBox(
                                     width: screenWidth(context) * 0.8,
@@ -161,7 +165,7 @@ class Register extends StatelessWidget {
                                       },
                                     ),
                                   ),
-                                );
+                                );}
                               },
                             ),
                           ],

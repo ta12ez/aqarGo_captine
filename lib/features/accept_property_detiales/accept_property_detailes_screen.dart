@@ -130,7 +130,8 @@ class AcceptPropertyDetailesScreen extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                        child:state is AddADSPropertyLoadingState? Container(child: Center(child: CircularProgressIndicator(color: mainColor1,),),):ButtomComponent(text: 'make it spacial',icon: Icons.add_business_sharp,onPressed:(){
+                        child:state is AddADSPropertyLoadingState? Container(child: Center(child: CircularProgressIndicator(color: mainColor1,),),):
+                        ButtomComponent(text: 'add to ADS',icon: Icons.add_business_sharp,onPressed:(){
 
                             showDialog(context: context,
                                 builder:(context)=>DialogComponent(
@@ -146,7 +147,8 @@ class AcceptPropertyDetailesScreen extends StatelessWidget {
                       ),
                       SizedBox(width: 10,),
                       Expanded(
-                        child:state is DeletePropertyLoadingState? Container(child: Center(child: CircularProgressIndicator(color: mainColor1,),),): ButtomComponent(text: 'delete',icon: Icons.delete_outline,color: Colors.red,onPressed:(){
+                        child:state is DeletePropertyLoadingState? Container(child: Center(child: CircularProgressIndicator(color: mainColor1,),),):
+                        ButtomComponent(text: 'delete',icon: Icons.delete_outline,color: Colors.red,onPressed:(){
                           showDialog(context: context, builder: (context)=>DialogComponent(
                             confirmText: "yes",
                             confirmColor: Colors.red,

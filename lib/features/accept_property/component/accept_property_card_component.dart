@@ -14,6 +14,7 @@ class AcceptPropertyItemCardComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(screenHeight(context)*0.25);
     return InkWell(
       onTap: ()async{
         AcceptPropertyCubit cubit =AcceptPropertyCubit.get(context);
@@ -24,7 +25,6 @@ class AcceptPropertyItemCardComponent extends StatelessWidget {
         },
       child: Container(
         width: screenWidth(context)*0.8,
-        height: screenHeight(context)*0.25,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: cardColor,

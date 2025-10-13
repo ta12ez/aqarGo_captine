@@ -20,6 +20,10 @@ class AcceptProperty extends StatelessWidget {
   create: (context) => AcceptPropertyCubit()..getAcceptProperty(),
   child: Scaffold(
       appBar: AppBar(
+        title: Text(
+          "Accepted Property",
+          style: Theme.of(context).textTheme.titleSmall,
+        ),
 
         leading:  Padding(
           padding: const EdgeInsets.all(5.0),
@@ -153,6 +157,7 @@ class AcceptProperty extends StatelessWidget {
                         cubit.commercialProperties,
                       );
                     } else {
+
                       return Container(
                         height: screenHeight(context) * 0.25,
                         width: double.infinity,

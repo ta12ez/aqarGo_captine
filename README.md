@@ -23,3 +23,7 @@ A Flutter-based mobile application for real estate offices to **manage property 
 - **Storage**: shared_preferences
 - **Media**: image_picker
 - **Utilities**: url_launcher
+
+##  Related Projects
+- **User App (Flutter):** [github.com/ta12ez/aqarGo_use](https://github.com/ta12ez/aqarGo_use.git)  
+- **Admin Dashboard (React):** [github.com/ta12ez/aqarGo_-AdminDashboard](https://github.com/ta12ez/aqarGo_-AdminDashboard.git)  
